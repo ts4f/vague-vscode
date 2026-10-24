@@ -19,6 +19,10 @@ for (const [name, value] of entries) {
   if (!HEX.test(value)) failures.push(`Palette colour "${name}" is not valid hex: ${value}`);
 }
 
+// A bad palette colour flows into every theme key that uses it, so the theme
+// checks below are skipped to report the root cause once.
+const paletteHexOk = failures.length === 0;
+
 // 2. Derived colours name a real source, and alpha variants share its RGB.
 for (const [name, d] of Object.entries(palette.derived)) {
   if (!d.reason) failures.push(`Derived colour "${name}" has no reason`);
@@ -59,7 +63,7 @@ if (theme) {
 }
 
 // 4. Every colour in the generated theme is valid hex.
-if (theme) {
+if (theme && paletteHexOk) {
   const seen = [];
   Object.entries(theme.colors).forEach(([k, v]) => seen.push([`colors.${k}`, v]));
   theme.tokenColors.forEach((r) => r.settings.foreground && seen.push([`tokenColors.${r.name}`, r.settings.foreground]));
@@ -70,7 +74,7 @@ if (theme) {
 }
 
 // 5. The committed theme file matches what the Generator would write.
-if (theme) {
+if (theme && paletteHexOk) {
   const expected = serialize(theme);
   const actual = fs.existsSync(THEME_PATH) ? fs.readFileSync(THEME_PATH, "utf8") : null;
   if (actual !== expected) failures.push("themes/vague-color-theme.json is out of date; run `npm run build`");
