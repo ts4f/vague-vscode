@@ -1,0 +1,7 @@
+.vscode/**
+.scratch/**
+docs/**
+scripts/**
+palette.json
+CLAUDE.md
+GLOSSARY.md

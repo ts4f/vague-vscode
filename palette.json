@@ -1,0 +1,99 @@
+{
+  "source": {
+    "repo": "https://github.com/vague-theme/vague.nvim",
+    "commit": "73f8aaa866bf3d14dd0b0ab9e48c11794c1cb7ab",
+    "files": [
+      "lua/vague/config/internal.lua",
+      "lua/vague/terminal.lua",
+      "lua/vague/groups/diff.lua"
+    ]
+  },
+  "original": {
+    "bg": "#141415",
+    "inactiveBg": "#1c1c24",
+    "fg": "#cdcdcd",
+    "floatBorder": "#878787",
+    "line": "#252530",
+    "comment": "#606079",
+    "builtin": "#b4d4cf",
+    "func": "#c48282",
+    "string": "#e8b589",
+    "number": "#e0a363",
+    "property": "#c3c3d5",
+    "constant": "#aeaed1",
+    "parameter": "#bb9dbd",
+    "visual": "#333738",
+    "error": "#d8647e",
+    "warning": "#f3be7c",
+    "hint": "#7e98e8",
+    "operator": "#90a0b5",
+    "keyword": "#6e94b2",
+    "type": "#9bb4bc",
+    "search": "#405065",
+    "plus": "#7fa563",
+    "delta": "#f3be7c",
+    "ansiBrightRed": "#e08398",
+    "ansiBrightGreen": "#99b782",
+    "ansiBrightYellow": "#f5cb96",
+    "ansiBrightBlue": "#8ba9c1",
+    "ansiBrightMagenta": "#c9b1ca",
+    "ansiBrightCyan": "#bebeda",
+    "ansiBrightWhite": "#d7d7d7",
+    "diffAddBg": "#293125",
+    "diffChangeBg": "#41362a",
+    "diffDeleteBg": "#3b242a",
+    "diffTextBg": "#6D583E"
+  },
+  "derived": {
+    "plusSoft": {
+      "value": "#7fa56340",
+      "from": "plus",
+      "reason": "Intra-line inserted text in the diff editor; vague.nvim has only one opaque DiffText colour."
+    },
+    "errorSoft": {
+      "value": "#d8647e40",
+      "from": "error",
+      "reason": "Intra-line removed text in the diff editor."
+    },
+    "warningSoft": {
+      "value": "#f3be7c33",
+      "from": "warning",
+      "reason": "Debugger stack-frame highlight and warning overview markers."
+    },
+    "searchSoft": {
+      "value": "#40506580",
+      "from": "search",
+      "reason": "Non-current find matches, hover highlight and strong word highlight; vague.nvim only has the opaque search colour."
+    },
+    "visualSoft": {
+      "value": "#33373880",
+      "from": "visual",
+      "reason": "Inactive selection, selection and word highlights, fold background; VS Code needs translucent variants to layer under text."
+    },
+    "commentSoft": {
+      "value": "#60607933",
+      "from": "comment",
+      "reason": "Scrollbar and minimap slider resting state."
+    },
+    "commentMid": {
+      "value": "#60607966",
+      "from": "comment",
+      "reason": "Scrollbar and minimap slider hover state."
+    },
+    "commentStrong": {
+      "value": "#60607999",
+      "from": "comment",
+      "reason": "Scrollbar and minimap slider active (dragging) state."
+    },
+    "shadow": {
+      "value": "#00000066",
+      "from": null,
+      "reason": "Widget and scrollbar shadow; vague.nvim defines no shadow (FloatShadow reuses visual)."
+    },
+    "searchHover": {
+      "value": "#4c5c71",
+      "from": "search",
+      "reason": "Button hover background: search lightened by roughly 10%."
+    }
+  }
+}

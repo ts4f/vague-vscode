@@ -1,0 +1,28 @@
+{
+  "name": "vague-vscode",
+  "displayName": "Vague",
+  "description": "A VS Code port of the vague.nvim colour theme.",
+  "version": "0.1.0",
+  "publisher": "local",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Vague",
+        "uiTheme": "vs-dark",
+        "path": "./themes/vague-color-theme.json"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/generate.js",
+    "check": "node scripts/check.js"
+  }
+}
