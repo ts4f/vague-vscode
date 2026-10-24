@@ -19,7 +19,6 @@ The theme is generated, not hand-edited.
 ```sh
 npm run build   # regenerate the theme from the palette
 npm run check   # validate palette, references, and that the theme is up to date
-npm test        # run the check and generator through throwaway copies of the project
 ```
 
 `check` fails on invalid hex, unknown palette names, an Original palette colour the theme never uses, or a stale theme file. It only warns on WCAG contrast, because the original palette is authoritative (vague.nvim's `comment` colour is deliberately subdued).

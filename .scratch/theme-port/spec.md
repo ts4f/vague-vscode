@@ -53,6 +53,7 @@ A VS Code extension shipping one dark **Theme**, ported from vague.nvim. Its col
 - Syntax uses generic TextMate scopes, with no per-language rules at first. Per-language fixes are added only when a real mis-colouring appears.
 - Semantic token colours follow vague.nvim's LSP group links, including `variable` using the `constant` colour and `function` using the `parameter` colour.
 - Bold and italic follow vague.nvim defaults: italic comments and strings, bold language constants and builtin types, bold headings.
+- Upstream's changed-line and changed-text diff colours (`diffChangeBg`, `diffTextBg`) have no diff editor key, so they colour the merge editor's current and incoming regions. This keeps every Original palette colour in use.
 - Workbench coverage: the mainstream surfaces listed in the user stories. Niche surfaces such as the debug toolbar and notebooks are deferred.
 - The generated Theme file is committed so the extension works from a clone.
 - Extension manifest targets VS Code `^1.90.0`. The publisher id is a placeholder until publishing.
@@ -63,8 +64,8 @@ A VS Code extension shipping one dark **Theme**, ported from vague.nvim. Its col
 
 - A good test checks external behaviour: given a palette, the generated Theme is correct and consistent. It does not assert on how individual scope rules are written, because those are expected to change as colouring is tuned.
 - One seam: `palette.json` in, generated theme JSON out, exercised through the existing `npm run check`. Extend that script rather than adding a test framework or dependency.
-- Checks to keep or add through that seam: valid hex across palette and theme; unknown palette names fail the build; Derived colours name a real source and a reason, and translucent ones share the source's RGB; every Original palette colour is used by the Theme; the committed Theme equals the Generator's output; the output is deterministic; contrast reports warnings and never failures.
-- Visual quality is verified manually in an Extension Development Host across sample files in several languages, the diff editor, the terminal and the settings UI. No automated screenshot tests.
+- Checks to keep or add through that seam: valid hex across palette and theme; unknown palette names fail the build; Derived colours name a real source and a reason, and translucent ones share the source's RGB; every Original palette colour is looked up by the Generator; the committed Theme equals the Generator's output; contrast reports warnings and never failures. Determinism is not checked separately: the Generator is deterministic by construction, so a check could not realistically fail.
+- Visual quality is verified manually in an Extension Development Host across sample files in several languages, the diff editor, the terminal and the settings UI. No automated screenshot tests. There is no separate test harness: the checks are small enough to try by hand when changed, and a harness can be added if `check.js` grows more rules.
 - Prior art: `scripts/check.js` already covers hex validity, derived-colour consistency, undefined names, staleness and contrast.
 
 ## Out of Scope
