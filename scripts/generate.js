@@ -14,8 +14,9 @@ function loadPalette() {
 
 // Colour lookup by palette name. Throws on unknown names so a typo can never
 // silently produce an undefined colour in the theme.
-function makeLookup(palette) {
+function makeLookup(palette, used = new Set()) {
   return (name) => {
+    used.add(name);
     if (name in palette.original) return palette.original[name];
     if (name in palette.derived) return palette.derived[name].value;
     throw new Error(`Unknown palette colour: "${name}"`);
@@ -102,6 +103,13 @@ function buildColors(c) {
     "diffEditor.insertedTextBackground": c("plusSoft"),
     "diffEditor.removedTextBackground": c("errorSoft"),
     "diffEditor.diagonalFill": c("line"),
+
+    // Merge editor: vague.nvim's changed-line and changed-text colours have no
+    // diff editor key, so they colour the regions both sides changed.
+    "merge.currentContentBackground": c("diffChangeBg"),
+    "merge.incomingContentBackground": c("diffChangeBg"),
+    "merge.currentHeaderBackground": c("diffTextBg"),
+    "merge.incomingHeaderBackground": c("diffTextBg"),
 
     // Widgets
     "editorWidget.background": c("inactiveBg"),
@@ -391,8 +399,8 @@ function buildSemanticTokenColors(c) {
   };
 }
 
-function build(palette = loadPalette()) {
-  const c = makeLookup(palette);
+function build(palette = loadPalette(), used = new Set()) {
+  const c = makeLookup(palette, used);
   return {
     $schema: "vscode://schemas/color-theme",
     name: "Vague",

@@ -32,12 +32,20 @@ for (const [name, d] of Object.entries(palette.derived)) {
 
 // 3. No theme key references an undefined palette name (build throws on one).
 let theme;
+const used = new Set();
 try {
-  theme = build(palette);
+  theme = build(palette, used);
   const c = makeLookup(palette);
   for (const name of Object.keys(palette.original)) c(name);
 } catch (err) {
   failures.push(err.message);
+}
+
+// 3b. Every Original palette colour is used by the theme.
+if (theme) {
+  for (const name of Object.keys(palette.original)) {
+    if (!used.has(name)) failures.push(`Original palette colour "${name}" is not used by the theme`);
+  }
 }
 
 // 4. Every colour in the generated theme is valid hex.
