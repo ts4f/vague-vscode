@@ -46,6 +46,18 @@ if (theme) {
   }
 }
 
+// 3c. No TextMate scope appears in more than one rule, since the winner would
+// then depend on rule order.
+if (theme) {
+  const ruleOf = new Map();
+  for (const rule of theme.tokenColors) {
+    for (const scope of rule.scope) {
+      if (ruleOf.has(scope)) failures.push(`TextMate scope "${scope}" is in both "${ruleOf.get(scope)}" and "${rule.name}"`);
+      else ruleOf.set(scope, rule.name);
+    }
+  }
+}
+
 // 4. Every colour in the generated theme is valid hex.
 if (theme) {
   const seen = [];

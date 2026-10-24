@@ -23,6 +23,14 @@ npm run check   # validate palette, references, and that the theme is up to date
 
 `check` fails on invalid hex, unknown palette names, an Original palette colour the theme never uses, or a stale theme file. It only warns on WCAG contrast, because the original palette is authoritative (vague.nvim's `comment` colour is deliberately subdued).
 
+### Pre-commit hook
+
+`.githooks/pre-commit` runs `npm run check`, so a stale theme or a bad palette can't be committed. Enable it once per clone:
+
+```sh
+git config core.hooksPath .githooks
+```
+
 ### Syncing with upstream
 
 Re-syncing is manual: copy the new values into `palette.json`, update `source.commit`, run `npm run build && npm run check`.
