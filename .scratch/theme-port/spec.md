@@ -1,4 +1,4 @@
-Status: ready-for-agent
+Status: resolved
 
 # Vague VS Code theme port
 
