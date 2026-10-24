@@ -2,7 +2,7 @@
 "use strict";
 
 const fs = require("fs");
-const { build, serialize, loadPalette, makeLookup, THEME_PATH } = require("./generate");
+const { buildWithUsage, serialize, loadPalette, THEME_PATH } = require("./generate");
 
 const HEX = /^#[0-9a-fA-F]{6}([0-9a-fA-F]{2})?$/;
 const failures = [];
@@ -32,11 +32,9 @@ for (const [name, d] of Object.entries(palette.derived)) {
 
 // 3. No theme key references an undefined palette name (build throws on one).
 let theme;
-const used = new Set();
+let usedNames;
 try {
-  theme = build(palette, used);
-  const c = makeLookup(palette);
-  for (const name of Object.keys(palette.original)) c(name);
+  ({ theme, usedNames } = buildWithUsage(palette));
 } catch (err) {
   failures.push(err.message);
 }
@@ -44,7 +42,7 @@ try {
 // 3b. Every Original palette colour is used by the theme.
 if (theme) {
   for (const name of Object.keys(palette.original)) {
-    if (!used.has(name)) failures.push(`Original palette colour "${name}" is not used by the theme`);
+    if (!usedNames.has(name)) failures.push(`Original palette colour "${name}" is not used by the theme`);
   }
 }
 

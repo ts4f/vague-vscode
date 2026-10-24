@@ -13,14 +13,18 @@ function loadPalette() {
 }
 
 // Colour lookup by palette name. Throws on unknown names so a typo can never
-// silently produce an undefined colour in the theme.
-function makeLookup(palette, used = new Set()) {
-  return (name) => {
-    used.add(name);
+// silently produce an undefined colour in the theme. The names looked up so far
+// are exposed as `lookup.usedNames`.
+function makeLookup(palette) {
+  const usedNames = new Set();
+  const lookup = (name) => {
+    usedNames.add(name);
     if (name in palette.original) return palette.original[name];
     if (name in palette.derived) return palette.derived[name].value;
     throw new Error(`Unknown palette colour: "${name}"`);
   };
+  lookup.usedNames = usedNames;
+  return lookup;
 }
 
 function buildColors(c) {
@@ -399,9 +403,10 @@ function buildSemanticTokenColors(c) {
   };
 }
 
-function build(palette = loadPalette(), used = new Set()) {
-  const c = makeLookup(palette, used);
-  return {
+// The theme, plus the palette names it referenced.
+function buildWithUsage(palette = loadPalette()) {
+  const c = makeLookup(palette);
+  const theme = {
     $schema: "vscode://schemas/color-theme",
     name: "Vague",
     type: "dark",
@@ -410,6 +415,11 @@ function build(palette = loadPalette(), used = new Set()) {
     tokenColors: buildTokenColors(c),
     semanticTokenColors: buildSemanticTokenColors(c),
   };
+  return { theme, usedNames: c.usedNames };
+}
+
+function build(palette) {
+  return buildWithUsage(palette).theme;
 }
 
 function serialize(theme) {
@@ -422,4 +432,4 @@ if (require.main === module) {
   console.log(`Wrote ${path.relative(ROOT, THEME_PATH)}`);
 }
 
-module.exports = { build, serialize, loadPalette, makeLookup, THEME_PATH };
+module.exports = { build, buildWithUsage, serialize, loadPalette, THEME_PATH };
