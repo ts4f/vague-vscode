@@ -383,7 +383,7 @@ function buildSemanticTokenColors(c) {
     function: style("parameter"),
     "function.declaration": style("func"),
     "function.defaultLibrary": style("func"),
-    method: style("type"),
+    method: style("func"),
     macro: style("keyword"),
     parameter: style("parameter"),
     selfParameter: style("builtin"),

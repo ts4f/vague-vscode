@@ -51,7 +51,7 @@ A VS Code extension shipping one dark **Theme**, ported from vague.nvim. Its col
 - **Derived colours** are limited to gaps upstream does not cover: translucent variants of `plus`, `error`, `warning`, `search`, `visual` and `comment`, a shadow, and a lightened `search` for button hover. A translucent Derived colour must share its source's RGB.
 - **Generator**: plain Node, no dependencies. It looks colours up by palette name and throws on an unknown name. It maps names onto workbench colour keys, TextMate scopes, and semantic token colours, and enables semantic highlighting in the Theme.
 - Syntax uses generic TextMate scopes, with no per-language rules at first. Per-language fixes are added only when a real mis-colouring appears.
-- Semantic token colours follow vague.nvim's LSP group links, including `variable` using the `constant` colour and `function` using the `parameter` colour.
+- Semantic token colours follow vague.nvim's LSP group links, including `variable` using the `constant` colour, `function` using the `parameter` colour and `method` using the `func` colour (upstream links it to the undefined `@function.method`, which falls back to `Function`).
 - Bold and italic follow vague.nvim defaults: italic comments and strings, bold language constants and builtin types, bold headings.
 - Upstream's changed-line and changed-text diff colours (`diffChangeBg`, `diffTextBg`) have no diff editor key, so they colour the merge editor's current and incoming regions. This keeps every Original palette colour in use.
 - Workbench coverage: the mainstream surfaces listed in the user stories. Niche surfaces such as the debug toolbar and notebooks are deferred.
