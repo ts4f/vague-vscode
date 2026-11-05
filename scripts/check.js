@@ -62,6 +62,16 @@ if (theme) {
   }
 }
 
+// 3d. Function and method tokens get the colour vague.nvim's LSP groups resolve
+// to. @lsp.type.method links to @function.method, which upstream leaves undefined,
+// so it falls back to Function; @function.method.call never wins once LSP is on.
+if (theme && paletteHexOk) {
+  for (const [token, name] of [["function", "parameter"], ["method", "func"]]) {
+    const actual = theme.semanticTokenColors[token];
+    if (actual !== palette.original[name]) failures.push(`Semantic token "${token}" should use "${name}" (${palette.original[name]}), got ${actual}`);
+  }
+}
+
 // 4. Every colour in the generated theme is valid hex.
 if (theme && paletteHexOk) {
   const seen = [];
